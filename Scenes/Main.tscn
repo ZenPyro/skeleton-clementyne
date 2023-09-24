@@ -1,0 +1,97 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Main/Code/Main.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/MediumPlayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/HardPlayer.tscn" type="PackedScene" id=4]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 60, 2, 60 )
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 120, 4, 120 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 1, 20, 60 )
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 2, 40, 120 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 1 )
+PlayerScene = ExtResource( 2 )
+
+[node name="Map" type="Spatial" parent="."]
+
+[node name="Ground" type="StaticBody" parent="Map" groups=["Ground"]]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1, 0 )
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Map/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Map/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+mesh = SubResource( 2 )
+
+[node name="WallW" type="StaticBody" parent="Map" groups=["Wall"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2, 116, 16, 0 )
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Map/WallW"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -235, 0, -1 )
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Map/WallW"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -235, 0, 0 )
+mesh = SubResource( 4 )
+
+[node name="WallE" type="StaticBody" parent="Map" groups=["Wall"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2, 115, 16, 0 )
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Map/WallE"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Map/WallE"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+mesh = SubResource( 4 )
+
+[node name="WallN" type="StaticBody" parent="Map" groups=["Wall"]]
+transform = Transform( -4.37114e-08, 0, 2, 0, 1, 0, -1, 0, -8.74228e-08, 0, 16, -119 )
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Map/WallN"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Map/WallN"]
+mesh = SubResource( 4 )
+
+[node name="WallS" type="StaticBody" parent="Map" groups=["Wall"]]
+transform = Transform( -4.37114e-08, 0, 2, 0, 1, 0, -1, 0, -8.74228e-08, 0, 16, 119 )
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Map/WallS"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Map/WallS"]
+mesh = SubResource( 4 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 125, 0 )
+fov = 90.5
+far = 8192.0
+
+[node name="MediumPlayer" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 1 )
+
+[node name="HardPlayer" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 29 )
+
+[node name="MediumPlayer2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 0, 75 )
+
+[node name="MediumPlayer3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, 103 )
